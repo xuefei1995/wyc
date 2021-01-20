@@ -1,0 +1,33 @@
+server:
+  port: 7901
+
+spring:
+  application:
+    name: eureka
+  security:
+    user:
+      name: xuefei
+      password: xuefei
+
+# 测试方便用单个注册中心
+eureka:
+  instance:
+    # 相当于访问域名，如果要使用该变量的话，需要保证通过访问该变量可以找到ip，该配置中这个变量无用
+    hostname: localhost
+    # 修改一下实例ID名称
+    instanceId: ${spring.application.name}:${random.value}
+    # 显示实例IP信息
+    prefer-ip-address: true
+  client:
+    # false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务，抓取服务
+    fetch-registry: false
+    # 是否注册自己信息到eureka，获取服务
+    register-with-eureka: false
+    # 设置服务注册中心url
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:7901/eureka/
+#        http://${spring.security.user.name}:${spring.security.user.password}@localhost:7902/eureka/
+#  server:
+#    # 关闭自我保护模式，关闭后只要没收到客户端心跳，那么立马剔除
+#    enable-self-preservation: false
+#    eviction-interval-timer-in-ms: 2000

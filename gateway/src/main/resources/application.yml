@@ -1,0 +1,25 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order_route # 路由ID保证唯一
+          uri: http://localhost:801 # 匹配后提供服务的地址
+          predicates: # 断言匹配规则
+            - Path=/openFeignOrder/hystrixOk/**
+
+eureka:
+  instance:
+    # 修改一下实例ID名称
+    instanceId: ${spring.application.name}:${random.value}
+    # 显示实例IP信息
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://xuefei:xuefei@localhost:7901/eureka/
