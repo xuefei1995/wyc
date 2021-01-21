@@ -7,10 +7,24 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: payment_route # 路由ID保证唯一
+#          uri: http://localhost:8001
+          uri: lb://payment-provider # 匹配后提供服务的地址 lb代表loadbalance
+          predicates: # 断言匹配规则 多个条件and相当于sql条件后面and
+            - Path=/payment/hystrixOk/**
+#            - After=2021-01-21T21:33:58.710+08:00[Asia/Shanghai]
+#            - Before=2021-01-22T21:33:58.710+08:00[Asia/Shanghai]
+#            - Between=2021-01-21T21:33:58.710+08:00[Asia/Shanghai],2021-01-22T21:33:58.710+08:00[Asia/Shanghai]
+#            - Cookie=name,xuefei
+#            - Header=sign,xuefei
+#            - Method=GET
         - id: order_route # 路由ID保证唯一
-          uri: http://localhost:801 # 匹配后提供服务的地址
+          uri: lb://order-consumer # 匹配后提供服务的地址
           predicates: # 断言匹配规则
-            - Path=/openFeignOrder/hystrixOk/**
+            - Path=/openFeignOrder/query/**
+      discovery:
+        locator:
+          enabled: true # 开启从注册中心动态创建路由，利用微服务名称路由
 
 eureka:
   instance:
