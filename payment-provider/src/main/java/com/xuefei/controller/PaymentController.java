@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import com.xuefei.pojo.Payment;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/payment")
 @CrossOrigin
 @Slf4j
+@RefreshScope //自动刷新
 public class PaymentController {
 
     @Autowired
@@ -27,9 +29,17 @@ public class PaymentController {
     @Value("${server.port}")
     private String serverPort;
 
+    @Value("${conf.info}")
+    private String confInfo;
+
     //配置服务发现
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @GetMapping("/confInfo")
+    public String confInfo() {
+        return confInfo;
+    }
 
     @GetMapping("/discovery")
     public Object discovery() {

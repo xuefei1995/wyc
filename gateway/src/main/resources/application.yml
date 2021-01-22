@@ -22,6 +22,14 @@ spring:
           uri: lb://order-consumer # 匹配后提供服务的地址
           predicates: # 断言匹配规则
             - Path=/openFeignOrder/query/**
+        - id: order_conf
+          uri: lb://order-consumer
+          predicates:
+            - Path=/openFeignOrder/confInfo
+        - id: payment_conf
+          uri: lb://payment-provider
+          predicates:
+            - Path=/payment/confInfo
       discovery:
         locator:
           enabled: true # 开启从注册中心动态创建路由，利用微服务名称路由

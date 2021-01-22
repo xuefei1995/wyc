@@ -4,7 +4,13 @@ server:
 spring:
   application:
     name: order-consumer
-#  cloud:
+  cloud:
+    # 测试把数据库相关配置放到配置中心仓库管理
+    config:
+      label: main # 读取分支名称
+      name: defaultconf # 配置文件名称
+      profile: dev
+      uri: http://localhost:3344 # 配置中心地址
 #    # consul做注册中心
 #    consul:
 #      host: localhost
@@ -29,6 +35,13 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://xuefei:xuefei@localhost:7901/eureka/
+
+# 暴露监控端点 记得改完配置后，http://localhost:801/actuator/refresh 刷新配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 feign:
   client:

@@ -10,8 +10,14 @@ spring:
     url: jdbc:mysql://localhost:3306/wyc?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
-#  cloud:
-##    # consul做注册中心
+  cloud:
+    # 测试把数据库相关配置放到配置中心仓库管理
+    config:
+      label: main # 读取分支名称
+      name: defaultconf # 配置文件名称
+      profile: dev
+      uri: http://localhost:3344 # 配置中心地址
+    ##    # consul做注册中心
 #    consul:
 #      host: localhost
 #      port: 8500
@@ -22,6 +28,13 @@ spring:
 #      timeout-seconds: 10
 #    zookeeper:
 #      connect-string: localhost:2181
+
+# 暴露监控端点 记得改完配置后，http://localhost:8001/actuator/refresh 刷新配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 # eureka做注册中心
 eureka:
@@ -50,3 +63,5 @@ mybatis:
 logging:
   level:
     com.xuefei.dao: debug
+
+
