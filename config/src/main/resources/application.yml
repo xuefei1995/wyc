@@ -1,0 +1,30 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          # 仓库地址
+          uri: https://github.com/xuefei1995/center-conf-repository.git
+          # 搜索目录
+          search-paths:
+            - center-conf-repository
+          # 设置github上的默认分支
+          default-label: main
+      # 需要读取哪个分支
+      label: main
+
+eureka:
+  instance:
+    # 修改一下实例ID名称
+    instanceId: ${spring.application.name}:${random.value}
+    # 显示实例IP信息
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://xuefei:xuefei@localhost:7901/eureka/
