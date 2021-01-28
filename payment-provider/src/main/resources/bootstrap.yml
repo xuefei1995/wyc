@@ -17,6 +17,13 @@ spring:
       name: defaultconf # 配置文件名称
       profile: dev
       uri: http://localhost:3344 # 配置中心地址
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings: # 设置output通道主题为publish
+        output:
+          destination: publish # 设置输出通道主题
     ##    # consul做注册中心
 #    consul:
 #      host: localhost

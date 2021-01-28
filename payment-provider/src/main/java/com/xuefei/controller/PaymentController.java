@@ -16,7 +16,7 @@ import com.xuefei.pojo.Payment;
 import java.util.List;
 
 
-@RestController
+//@RestController
 @RequestMapping("/payment")
 @CrossOrigin
 @Slf4j

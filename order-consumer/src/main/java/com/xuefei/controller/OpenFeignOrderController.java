@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 //@DefaultProperties(defaultFallback = "") 通用的全局降级方法
-@RestController
+//@RestController
 @RequestMapping("/openFeignOrder")
 @Slf4j
 @RefreshScope

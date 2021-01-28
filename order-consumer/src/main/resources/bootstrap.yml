@@ -11,6 +11,14 @@ spring:
       name: defaultconf # 配置文件名称
       profile: dev
       uri: http://localhost:3344 # 配置中心地址
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings: # 设置input通道主题为publish
+        input:
+          destination: publish # 设置输入通道主题
+          group: publish-a # 设置消费者分组，多个消费者应在一个分组，避免多个消费者重复消费,还可以在重启后避免消息丢失
 #    # consul做注册中心
 #    consul:
 #      host: localhost
@@ -22,6 +30,7 @@ spring:
 #      timeout-seconds: 10
 #    zookeeper:
 #      connect-string: localhost:2181
+
 
 
 eureka:
