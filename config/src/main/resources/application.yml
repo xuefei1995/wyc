@@ -16,6 +16,18 @@ spring:
           default-label: main
       # 需要读取哪个分支
       label: main
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+
+# 暴露监控端点 记得改完配置后，http://localhost:3344/actuator/bus-refresh 刷新配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
+
 
 eureka:
   instance:
